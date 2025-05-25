@@ -26,3 +26,4 @@ jobs:
       - name: Build
         working-directory: my_package
         run: poetry build
+        # Poetry is used to manage dependencies and build the package.
