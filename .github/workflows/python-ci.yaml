@@ -27,6 +27,11 @@ jobs:
         working-directory: my_package
         run: poetry build
         # Poetry is used to manage dependencies and build the package.
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+         name: builds
+         path: my_package/dist/*
 
   PublishPackage:
         runs-on: ubuntu-latest
@@ -44,6 +49,13 @@ jobs:
           run: |
             python -m pip install --upgrade pip
             pip install poetry
+
+        - name: Download Build Artifacts
+          uses: actions/download-artifact@v4
+          with:
+           name: builds
+           path: my_package/dist/
+           
         - name: Publish
           working-directory: my_package
           run: |
